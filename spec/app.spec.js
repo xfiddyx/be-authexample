@@ -4,18 +4,8 @@ const request = require('supertest')(app);
 const connection = require('../db/connection');
 
 describe('/api', () => {
-  let validToken;
   beforeEach(() => {
-    return connection.seed
-      .run()
-      .then(() => {
-        return request
-          .post('/api/login')
-          .send({ username: 'mitch', password: 'secure123' });
-      })
-      .then(({ body }) => {
-        validToken = body.token;
-      });
+    return connection.seed.run();
   });
   after(() => connection.destroy());
 
@@ -60,11 +50,5 @@ describe('/api', () => {
             'user_id'
           );
         }));
-    it('401: Unathorised in token provided', () => {
-      return request
-        .get('/api/secrets')
-        .set('Authorization', `BEARER invalidToken`)
-        .expect(401);
-    });
   });
 });
