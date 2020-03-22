@@ -1,0 +1,3 @@
+DROP DATABASE jwts;
+
+CREATE DATABASE jwts;
