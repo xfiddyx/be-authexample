@@ -40,7 +40,6 @@ describe('/api', () => {
     it('Responds with an array of secrets', () =>
       request
         .get('/api/secrets')
-        .set('Authorization', `BEARER ${validToken}`)
         .expect(200)
         .then(({ body: { secrets } }) => {
           expect(secrets).to.be.an('Array');
