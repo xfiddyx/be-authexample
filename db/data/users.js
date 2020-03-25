@@ -1,8 +1,10 @@
 module.exports = [
   {
-    username: 'paul'
+    username: 'paul',
+    password: 'password123'
   },
   {
-    username: 'mitch'
+    username: 'mitch',
+    password: '321password'
   }
 ];

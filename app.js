@@ -2,8 +2,11 @@ const express = require('express');
 const app = express();
 const { handleCustomErrors, handle500s } = require('./controllers/errors');
 const { revealSecrets } = require('./controllers/secrets');
+const { loginUser } = require('./controllers/auth');
 
 app.use(express.json());
+
+app.post('/api/login', loginUser);
 
 app.get('/api/secrets', revealSecrets);
 
