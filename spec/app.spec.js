@@ -2,10 +2,19 @@ const { expect } = require('chai');
 const app = require('../app');
 const request = require('supertest')(app);
 const connection = require('../db/connection');
-
+let validUser;
 describe('/api', () => {
   beforeEach(() => {
-    return connection.seed.run();
+    return connection.seed
+      .run()
+      .then(() => {
+        return request
+          .post('/api/login')
+          .send({ username: 'mitch', password: 'secure123' });
+      })
+      .then(({ body }) => {
+        validUser = `BEARER ${body.token}`;
+      });
   });
   after(() => connection.destroy());
 
@@ -40,6 +49,7 @@ describe('/api', () => {
     it('Responds with an array of secrets', () =>
       request
         .get('/api/secrets')
+        .set('authorization', validUser)
         .expect(200)
         .then(({ body: { secrets } }) => {
           expect(secrets).to.be.an('Array');

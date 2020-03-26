@@ -5,6 +5,6 @@ module.exports = [
   },
   {
     username: 'mitch',
-    password: '321password'
+    password: 'secure123'
   }
 ];
