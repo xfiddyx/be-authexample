@@ -26,7 +26,7 @@ const authLogin = (username, password) => {
 const authenticationOfUser = authorization => {
   const token = authorization.split(' ')[1];
   const verified = jwt.verify(token, JWT_SECRET, (err, payload) => {
-    if (err) Promise.reject({ status: 401, msg: 'nay entry' });
+    if (err) return Promise.reject({ status: 401, msg: 'nay entry' });
     else return 'verified';
   });
   return Promise.resolve(verified);
